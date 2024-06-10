@@ -43,9 +43,6 @@ class _Ejercicio1State extends State<Ejercicio1> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'BANCO "BANDIDO PELUCHE"',
-        onTrailingPressed: () {
-          // Acción a realizar al presionar el ícono trailing
-        },
       ),
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
