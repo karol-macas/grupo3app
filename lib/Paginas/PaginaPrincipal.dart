@@ -17,7 +17,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Menu Principal',
           style: TextStyle(color: Colors.indigo, fontSize: 30),
         ),
@@ -31,7 +31,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
           children: <Widget>[
             Container(
               height: 710,
-              decoration:  BoxDecoration(
+              decoration:  const BoxDecoration(
                 color: Colors.blue,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -60,7 +60,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
                     ),
                     const SizedBox(height: 100),
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(
@@ -97,7 +97,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
                     ),
                     const SizedBox(height: 50),
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(
