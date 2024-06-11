@@ -1,4 +1,7 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
 import 'CustomAppBar.dart';
 
@@ -44,106 +47,63 @@ class _Ejercicio1State extends State<Ejercicio1> {
       appBar: CustomAppBar(
         title: 'BANCO "BANDIDO PELUCHE"',
       ),
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Color.fromARGB(255, 236, 177, 194),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              _buildInputField('Saldo Anterior', _saldoAnteriorController),
+              SizedBox(height: 20),
+              _buildInputField('Monto de Compras', _montoComprasController),
+              SizedBox(height: 20),
+              _buildInputField('Pago Anterior', _pagoAnteriorController),
+              SizedBox(height: 20),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(18),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Color.fromARGB(255, 215, 27, 27).withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 3,
                       offset: Offset(0, 2),
                     ),
                   ],
                 ),
-                child: TextField(
-                  controller: _saldoAnteriorController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Saldo Anterior',
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide.none,
+                child: ElevatedButton(
+                  onPressed: _calcular,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 25,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: const Text(
+                    'CALCULAR',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      backgroundColor: Color.fromARGB(255, 238, 228, 228),
+                      color: Color.fromARGB(255, 179, 11, 146),
+                      fontFamily: 'Super Creamy Personal Use',
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  controller: _montoComprasController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Monto de Compras',
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  controller: _pagoAnteriorController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Pago Anterior',
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _calcular,
-                child: Text('Calcular'),
-              ),
-              SizedBox(height: 20),
-              Container(
-                color: Colors.white,
+                color: Color.fromARGB(255, 251, 217, 217),
                 child: Table(
-                  border: TableBorder.all(),
+                  border: TableBorder.all(
+                    color: Color.fromARGB(255, 227, 30, 56).withOpacity(0.6),
+                    width: 4.0,
+                  ),
+                  columnWidths: const {
+                    0: FlexColumnWidth(),
+                    1: FlexColumnWidth(),
+                  },
                   children: [
                     _buildTableRow('Saldo Actual', saldoActual ?? 0),
                     _buildTableRow('Saldo Actual con Intereses',
@@ -151,8 +111,8 @@ class _Ejercicio1State extends State<Ejercicio1> {
                     _buildTableRow('Pago Mínimo (15%)', pagoMinimo ?? 0),
                     _buildTableRow(
                         'Pago Sin Intereses (85%)', pagoSinIntereses ?? 0),
-                    _buildTableRow(
-                        'Intereses Morosos (12% + \$200)', interesesMorosos ?? 0),
+                    _buildTableRow('Intereses Morosos (12% + \$200)',
+                        interesesMorosos ?? 0),
                   ],
                 ),
               ),
@@ -163,18 +123,60 @@ class _Ejercicio1State extends State<Ejercicio1> {
     );
   }
 
+  Widget _buildInputField(String label, TextEditingController controller) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 238, 228, 228),
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 215, 27, 27).withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: TextField(
+        controller: controller,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          labelText: label,
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
   TableRow _buildTableRow(String label, double value) {
     return TableRow(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(label),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(value.toStringAsFixed(2)),
-        ),
+        _buildTableCell(label, Color.fromARGB(255, 247, 235, 235)),
+        _buildTableCell(
+            value.toStringAsFixed(2), Color.fromARGB(255, 251, 217, 217)),
       ],
+    );
+  }
+
+  TableCell _buildTableCell(String content, Color color) {
+    return TableCell(
+      child: Container(
+        color: color,
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+          child: Text(content,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontFamily: 'Courgette',
+              )),
+        ),
+      ),
     );
   }
 }
@@ -186,8 +188,8 @@ class Cliente {
 
   Cliente(
       {required this.saldoAnterior,
-        required this.montoCompras,
-        required this.pagoAnterior});
+      required this.montoCompras,
+      required this.pagoAnterior});
 
   double calcularSaldoActual() {
     return saldoAnterior + montoCompras - pagoAnterior;

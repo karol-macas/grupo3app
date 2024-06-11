@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grupo3app/Paginas/Ejercicio1.dart';
 import 'package:grupo3app/Paginas/Ejercicio2.dart';
 import 'package:animated_background/animated_background.dart';
+import 'CustomAppBar.dart';
 
 class PaginaPrincipal extends StatefulWidget {
   @override
@@ -16,37 +17,28 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Menu Principal',
-          style: TextStyle(color: Colors.indigo, fontSize: 30),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.orange[200],
-        elevation: 20,
-        shadowColor: Colors.pinkAccent[200],
+      appBar: CustomAppBar(
+        title: 'MENU PRINCIPAL',
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
               height: 710,
-              decoration:  const BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.blue,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.white70, Colors.yellowAccent],
+                  colors: [Colors.white70, Color.fromARGB(215, 235, 63, 112)],
                 ),
               ),
               child: AnimatedBackground(
                 behaviour: RandomParticleBehaviour(
-                  options: const ParticleOptions(
-                    spawnMaxRadius: 18,
-                    baseColor: Colors.cyan,
-
-                  )
-                ),
+                    options: const ParticleOptions(
+                  spawnMaxRadius: 18,
+                  baseColor: Color.fromARGB(255, 119, 20, 225),
+                )),
                 vsync: this,
                 child: Column(
                   children: [
@@ -54,8 +46,11 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
                     const Center(
                       child: Text(
                         'Bienvenido',
-                        style: TextStyle(fontSize: 70, color: Colors.indigoAccent,
-                            fontFamily: 'Pacifico-Regular',),
+                        style: TextStyle(
+                          fontSize: 70,
+                          color: Color.fromARGB(255, 68, 13, 217),
+                          fontFamily: 'Pacifico-Regular',
+                        ),
                       ),
                     ),
                     const SizedBox(height: 100),
@@ -87,10 +82,13 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
                           ),
                         ),
                         child: Text(
-                          'Ejercicio1',
+                          'Ejercicio 1',
                           style: TextStyle(
-                            color: _isButton1Tapped ? Colors.black : Colors.pinkAccent,
+                            color: _isButton1Tapped
+                                ? Colors.black
+                                : Colors.pinkAccent,
                             fontSize: 30,
+                            fontFamily: "OleoScript",
                           ),
                         ),
                       ),
@@ -99,7 +97,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color: Colors.orange,
                           width: 3,
@@ -124,10 +122,13 @@ class _PaginaPrincipalState extends State<PaginaPrincipal>
                           ),
                         ),
                         child: Text(
-                          'Ejercicio2',
+                          'Ejercicio 2',
                           style: TextStyle(
-                            color: _isButton2Tapped ? Colors.redAccent : Colors.brown,
+                            color: _isButton2Tapped
+                                ? Colors.redAccent
+                                : Colors.brown,
                             fontSize: 30,
+                            fontFamily: "OleoScript",
                           ),
                         ),
                       ),

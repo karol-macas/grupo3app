@@ -21,11 +21,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Roboto', // Cambia esto a la fuente que prefieras y tengas disponible
+          fontFamily: 'OleoScript',
         ),
       ),
       centerTitle: true,
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color.fromARGB(255, 232, 64, 87),
       leading: const BackButton(
         color: Colors.white,
       ),

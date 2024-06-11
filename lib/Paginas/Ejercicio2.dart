@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'CustomAppBar.dart';
 
 class Ejercicio2 extends StatefulWidget {
   const Ejercicio2({super.key});
@@ -19,56 +20,76 @@ class Ejercicio2State extends State<Ejercicio2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ejercicio 2: Calcular sueldo'),
-        backgroundColor: Colors.purpleAccent,
+      appBar: CustomAppBar(
+        title: 'Ejercicio 2: Calcular sueldo',
       ),
+      backgroundColor: Color.fromARGB(255, 243, 218, 201),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _nameController,
-              keyboardType: TextInputType.name,
-              decoration: const InputDecoration(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              _buildInputField(
+                controller: _nameController,
                 labelText: "Nombre del trabajador",
-                prefixIcon: Icon(Icons.person),
+                icon: Icons.person,
               ),
-            ),
-            TextField(
-              controller: _hoursController,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
+              const SizedBox(height: 20),
+              _buildInputField(
+                controller: _hoursController,
                 labelText: "Horas trabajadas (semanal)",
-                prefixIcon: Icon(Icons.timer_outlined),
+                icon: Icons.timer_outlined,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
-            ),
-            TextField(
-              controller: _salaryPerHourController,
-              keyboardType: const TextInputType.numberWithOptions(),
-              decoration: const InputDecoration(
+              const SizedBox(height: 20),
+              _buildInputField(
+                controller: _salaryPerHourController,
                 labelText: "Sueldo por hora",
-                prefixIcon: Icon(Icons.work_history_outlined),
+                icon: Icons.work_history_outlined,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
-            ),
-            ElevatedButton(
-              onPressed: computeSalary,
-              child: const Text("Calcular sueldo"),
-            ),
-            Container(
-              color: Colors.white,
-              child: Table(
-                border: TableBorder.all(),
-                children: [
-                  _buildTableRow("Sueldo bruto", _salary),
-                  _buildTableRow("Descuento", _discount),
-                  _buildTableRow(
-                      "Sueldo total", _salary - (_salary * _discount)),
-                ],
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: computeSalary,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 235, 65, 65),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 15.0),
+                  textStyle: const TextStyle(
+                    fontFamily: "OleoScript",
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: const Text("Calcular sueldo",
+                    style:
+                        TextStyle(color: Color.fromARGB(255, 248, 243, 243))),
               ),
-            )
-          ],
+              const SizedBox(height: 30),
+              Container(
+                color: Colors.white,
+                child: Table(
+                  border: TableBorder.all(
+                    color: Color.fromARGB(255, 227, 30, 56).withOpacity(0.6),
+                    width: 4.0,
+                  ),
+                  columnWidths: const {
+                    0: FlexColumnWidth(),
+                    1: FlexColumnWidth(),
+                  },
+                  children: [
+                    _buildTableRow("Sueldo bruto", _salary),
+                    _buildTableRow("Descuento", _discount),
+                    _buildTableRow(
+                        "Sueldo total", _salary - (_salary * _discount)),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -95,16 +116,73 @@ class Ejercicio2State extends State<Ejercicio2> {
     });
   }
 
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required String labelText,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        fillColor: Color.fromARGB(255, 244, 233, 233),
+        filled: true,
+        labelText: labelText,
+        labelStyle: TextStyle(
+          fontFamily: "OleoScript",
+          fontSize: 17.0,
+          color: Color.fromARGB(255, 234, 86, 18),
+        ),
+        prefixIcon: Icon(icon, color: Color.fromARGB(255, 249, 27, 72)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Color.fromARGB(255, 225, 89, 15),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Color.fromARGB(255, 232, 86, 14),
+            width: 2.0,
+          ),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+      ),
+      style: const TextStyle(fontSize: 20.0),
+    );
+  }
+
   TableRow _buildTableRow(String label, double value) {
     return TableRow(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(label),
+        Container(
+          color: Color.fromARGB(255, 72, 217, 10).withOpacity(0.2),
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Courgette',
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(value.toStringAsFixed(2)),
+        Container(
+          color: Color.fromARGB(255, 233, 126, 44).withOpacity(0.1),
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            value.toStringAsFixed(2),
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Courgette',
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );
